@@ -1,6 +1,10 @@
 # Jupyter Kroki Magic
 
-A Jupyter Notebook %%magic for drawing diagrams using kroki.io
+A Jupyter Notebook %%magic for drawing diagrams using kroki.io or self-hosted kroki server.
+
+URL is read from args first, then environment var `KROKI_ENDPOINT` is checked and last fallback to `https://kroki.io`.
+
+Additionally variable expansion within diagram syntax can be enabled, to reuse content of other cells as well.
 
 Usage
 ------
@@ -19,6 +23,10 @@ Add code with Cell magic:
 # diagram syntax
 ```
 
+for help and usage, see also
+```
+%%kroki?
+```
 
 Examples
 --------
@@ -53,6 +61,21 @@ main_ts ==> (main.view)
 (singleton) ---> (model)
 ```
 
+or
+
+```
+persons=['Alice','Bob']
+```
+```
+%%kroki --expand_vars plantuml
+@startuml
+{persons[0]} -> {persons[1]}: Authentication Request
+{persons[1]} --> {persons[0]}: Authentication Response
+
+{persons[0]} -> {persons[1]}: Another authentication Request
+{persons[0]} <-- {persons[1]}: Another authentication Response
+@enduml
+```
 Installation
 ------------
 
